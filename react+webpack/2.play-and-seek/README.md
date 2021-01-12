@@ -13,6 +13,6 @@ const broadcastId = "bc_XXX";
 次に、以下の手順で React アプリケーションのビルドを行います。
 
 ```shell
-yarn install
-yarn serve
+npm install
+npm run serve
 ```
