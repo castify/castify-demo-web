@@ -6,9 +6,9 @@
 <body>
 <h1>Castify Player</h1>
 <div>
-  <video id="display" width="640" height="360" style="background: #000" muted playsinline autoplay></video>
+  <video id="display" width="640" height="360" style="background: #000" muted playsinline></video>
 </div>
-<script src="https://storage.googleapis.com/public.castify.jp/js/player/castify-player-1.latest.js"></script>
+<script src="https://storage.googleapis.com/public.castify.jp/js/castify-player/1.latest/player.js"></script>
 <script>
 
 //----
@@ -30,7 +30,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const player = new Castify.Player(document.getElementById("display"), config);
 
   // 2. 再生対象を設定
-  player.source = new Castify.Source(broadcastId);
+  player.source = new Castify.Source(broadcastId, {
+    key: "test", // (オプション) Playback Key を設定 - https://doc.castify.jp/concepts/playback.html#playbackkey
+    val: "data"
+  });
 
   // 3. 再生対象のメタデータを取得
   player.source.load()
@@ -38,8 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // 4. ライブの終了時刻を確認
       if (info.stoppedAt === undefined) {
         player.seek("live"); // 未定義の場合はライブ配信として再生
-      }
-      else {
+      } else {
         player.seek(0); // アーカイブを 0s 地点から再生
       }
     })
